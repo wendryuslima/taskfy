@@ -6,6 +6,11 @@ import (
 	"github.com/google/uuid"
 )
 
+type UserRepository interface {
+	CreateUser(user *User) error
+	GetUserByEmail(email string) (*User, error)
+}
+
 type User struct {
 	Id        string
 	Email     string
