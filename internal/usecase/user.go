@@ -23,11 +23,6 @@ func (uc *UserUseCase) CreateUser(email, password string) (*domain.User, error) 
 	user := domain.NewUser(email, password)
 	err := uc.userRepository.CreateUser(user)
 	if err != nil {
-		return nil, err
-	}
-
-	error := uc.userRepository.CreateUser(user)
-	if error != nil {
 		return nil, errors.ErrUserCreationFailed
 	}
 

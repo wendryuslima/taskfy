@@ -3,10 +3,20 @@ package main
 import (
 	"fmt"
 	"taskfy/internal/domain"
+	"taskfy/internal/repository"
+	"taskfy/internal/usecase"
 )
 
 func main() {
-	u := domain.NewUser("teste@example.com", "123")
+
+	userInMemoryRepository := repository.NewUserRepositoryInMemory()
+	userUseCase := usecase.NewUserUseCase(userInMemoryRepository)
+
+	u, err := userUseCase.CreateUser("teste@example.com", "123")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	fmt.Println(u)
 

@@ -7,4 +7,5 @@ var (
 	ErrEmailAndPasswordRequired = errors.New("Email e senha são obrigatórios")
 	ErrUserNotFound             = errors.New("Usuário não encontrado")
 	ErrUserCreationFailed       = errors.New("Falha ao criar usuário")
+	ErrEmailAlreadyExists       = errors.New("Usuário ja existente")
 )
