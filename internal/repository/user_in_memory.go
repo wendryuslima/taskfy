@@ -40,3 +40,12 @@ func (r *UserRepositoryInMemory) GetUserByEmail(email string) (*domain.User, err
 	return nil, customErrors.ErrUserNotFound
 
 }
+
+func (r *UserRepositoryInMemory) GetUserByID(id string) (*domain.User, error) {
+	user, exists := r.users[id]
+	if !exists {
+		return nil, customErrors.ErrUserNotFound
+	}
+	return user, nil
+
+}

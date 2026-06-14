@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	handler "taskfy/handlers"
 	"taskfy/internal/domain"
+	handler "taskfy/internal/handlers"
+	"taskfy/internal/middleware"
 	"taskfy/internal/repository"
 	"taskfy/internal/usecase"
 )
@@ -28,11 +29,16 @@ func main() {
 	fmt.Println(t)
 
 	userHandlers := handler.NewUserHandler(userUseCase)
+	taskHandlers := handler.NewTaskHandler()
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("POST /users", userHandlers.CreateUser)
 
-	port := ":8080"
+	authMiddlware := middleware.NewAuthMiddleware(userInMemoryRepository)
+	mux.HandleFunc("POST /users", userHandlers.CreateUser)
+	mux.HandleFunc("POST /login", userHandlers.Login)
+	mux.HandleFunc("GET /tasks", authMiddlware.VerifyAuthentication(taskHandlers.ListTasks))
+
+	port := ":8081"
 	fmt.Printf("Server is running on port %s\n", port)
 	if err := http.ListenAndServe(port, mux); err != nil {
 		log.Fatal(err)
