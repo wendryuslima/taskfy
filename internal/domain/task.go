@@ -6,6 +6,10 @@ import (
 	"github.com/google/uuid"
 )
 
+type TaskRepository interface {
+	GetAll(userID string) ([]*Task, error)
+}
+
 type Task struct {
 	Id     string
 	Title  string

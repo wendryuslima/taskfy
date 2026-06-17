@@ -15,6 +15,8 @@ func main() {
 
 	userInMemoryRepository := repository.NewUserRepositoryInMemory()
 	userUseCase := usecase.NewUserUseCase(userInMemoryRepository)
+	taskInMemoryRepository := repository.NewTaskRepository()
+	taskUseCase := usecase.NewTaskUseCase(taskInMemoryRepository)
 
 	u, err := userUseCase.CreateUser("teste@example.com", "123")
 	if err != nil {
@@ -29,7 +31,7 @@ func main() {
 	fmt.Println(t)
 
 	userHandlers := handler.NewUserHandler(userUseCase)
-	taskHandlers := handler.NewTaskHandler()
+	taskHandlers := handler.NewTaskHandler(*taskUseCase)
 
 	mux := http.NewServeMux()
 

@@ -10,4 +10,6 @@ var (
 	ErrEmailAlreadyExists         = errors.New("Usuário ja existente")
 	ErrInvalidToken               = errors.New("Token inválido")
 	ErrInvalidAuthorizationHeader = errors.New("Cabeçalho de autorização inválido")
+	ErrInvalidTitle               = errors.New("Título inválido")
+	ErrInvalidDescription         = errors.New("Descrição inválida")
 )

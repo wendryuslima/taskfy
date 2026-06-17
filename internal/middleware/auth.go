@@ -49,3 +49,13 @@ func (m *AuthMiddleware) VerifyAuthentication(next http.HandlerFunc) http.Handle
 	}
 
 }
+
+func GetUserIDFromContext(ctx context.Context) (string, error) {
+
+	userID, ok := ctx.Value(UserIDContextKey).(string)
+	if !ok {
+		return "", errors.ErrUserCreationFailed
+	}
+	return userID, nil
+
+}
